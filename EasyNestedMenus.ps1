@@ -68,16 +68,16 @@ function present_choice   {
         $all_choice = ""
         $this_menu = $(& $hash_name)
         
-        foreach ($choice in $this_menu.GetEnumerator()) {
-            $all_choice += [string]$choice.name
-        }  
+        $all_choice = foreach ($choice in $this_menu.GetEnumerator()) {
+            [string]$choice.name
+        }   
         
         do {
             make-menu $menu_name $this_menu
             $decision  = Read-Host "Please make a selection"
             if ([regex]::Match($decision, "[q]").value) {exit}
             if ([regex]::Match($decision, "[b]").value) {break}
-            if ($all_choice -match $decision)  {
+            if ($all_choice -contains $decision)  {
                 invoke-expression -Command $this_menu.([int]$decision).menu_action
             }
         } until ([regex]::Match($decision, "[qb]").value) 
