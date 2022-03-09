@@ -65,7 +65,7 @@ function present_choice   {
         $menu_name,
         $hash_name
     )
-        $all_choice = ""
+        $all_choice = @{}
         $this_menu = $(& $hash_name)
         
         $all_choice = foreach ($choice in $this_menu.GetEnumerator()) {
